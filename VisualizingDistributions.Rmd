@@ -1,0 +1,82 @@
+---
+title: "Visualizing Distributions: Lab 2"
+author: "Tina Piltner"
+date: "2025-06-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+Define variables containing the heights of males and females like this: 
+
+```{r}
+library(dslabs)
+male <- heights$height[heights$sex == "Male"]
+female <- heights$height[heights$sex == "Female"]
+```
+
+How many measurements do we have for each? 
+
+```{r}
+length(male)
+length (female) 
+```
+812 measurements for male. 
+238 measurements for female. 
+
+## Question 2
+Create a five row table showing female_percentiles and male_percentiles with the 10th, 30th, 50th, 70th, & 90th percentiles for each sex. Then create a data frame with these two as columns.
+
+```{r}
+percentiles <- c(0.1, 0.3, 0.5, 0.7, 0.9)
+
+femalePercentiles <- quantile(female, percentiles)
+malePercentiles <- quantile(male, percentiles)
+
+#Create data frame with both 
+percentileTable <- data.frame(
+  Percentile = c("10th", "30th", "50th", "70th", "90th"), 
+  Female = femalePercentiles,
+  Male = malePercentiles
+)
+print(percentileTable)
+```
+## Question 3
+Study the following boxplots showing population sizes by county. Which continent has the country with the biggest population size?
+
+Asia has the country with the biggest population size because it has the tallest upper whisker with the highest point on the y-axis (next to 1000 million), which represents the max population size of the countries in each continent. 
+
+## Question 4
+Which continent has the largest median population size? 
+Africa has the largest median population size because its median line is higher on the y-axis than the othercontinents. Median is represented by the horizontal line inside each box. 
+
+## Quesion 5
+What is median population size for African to the nearest million? 
+Africa's median population size is about 10 million. 
+
+## Question 6 
+What proportion of countries in Europe have populations below 14 million? 
+b. 0.75. 
+This is because Europe's median life is below 14 million and the top of the box (75th percentile) is also slightly below 14 million. 
+
+## Question 7 
+If we use a log transformation, which continent shown above has the largest interquartile range?
+Asia has the largest interquartile range because it has the tallest box. The box has the widest vertical range. 
+
+## Question 8 
+Load the height data and create a vector x with just the male heights. 
+```{r}
+library(dslabs)
+x <- heights$height[heights$sex=="Male"]
+```
+
+What proportion of the data is between 69 and 72 inches (taller than 69, but shorter or equal to 72)? 
+Hint: use a logical operator and mean.
+```{r}
+mean(x > 69 & x <= 72)
+```
+The mean is 0.3337438. 
+
